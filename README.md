@@ -1,4 +1,5 @@
 # update-cask
+Update [homebrew-cask](https://github.com/Homebrew/homebrew-cask) cask file
 
 Usage
 ```sh
