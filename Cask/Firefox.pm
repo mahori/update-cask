@@ -1,4 +1,4 @@
-package LibreOfficeLanguagePack;
+package Cask::Firefox;
 
 use strict;
 use warnings;
@@ -25,7 +25,7 @@ sub url {
     return undef;
   }
 
-  return "https://download.documentfoundation.org/libreoffice/stable/$version/mac/x86_64/LibreOffice_${version}_MacOS_x86-64_langpack_$language.dmg";
+  return "https://ftp.mozilla.org/pub/firefox/releases/$version/mac/$language/Firefox%20$version.dmg";
 }
 
 1;

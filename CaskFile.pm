@@ -7,13 +7,13 @@ use feature qw(say);
 
 use FindBin qw($RealBin);
 use lib "$RealBin";
+use Cask::Firefox;
+use Cask::FirefoxESR;
+use Cask::LibreOffice;
+use Cask::LibreofficeLanguagePack;
+use Cask::Thunderbird;
+use Cask::UniversalMediaServer;
 use DownloadFile;
-use Firefox;
-use FirefoxESR;
-use LibreOffice;
-use LibreofficeLanguagePack;
-use Thunderbird;
-use UniversalMediaServer;
 
 sub new {
   my ($class, %args) = @_;
@@ -27,7 +27,7 @@ sub new {
   my $cask_name = $args{cask_name};
   my $version = $args{version};
 
-  $self->{_cask} = $cask_name->new(version => $version);
+  $self->{_cask} = "Cask::$cask_name"->new(version => $version);
   $self->{_version} = $version;
 
   return $self;

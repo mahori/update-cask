@@ -1,4 +1,4 @@
-package LibreOffice;
+package Cask::LibreOffice;
 
 use strict;
 use warnings;

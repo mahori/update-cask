@@ -1,4 +1,4 @@
-package UniversalMediaServer;
+package Cask::LibreOfficeLanguagePack;
 
 use strict;
 use warnings;
@@ -19,12 +19,13 @@ sub url {
   my ($self, %args) = @_;
 
   my $version = $self->{_version};
+  my $language = $args{language};
 
-  unless ($version) {
+  unless ($version && $language) {
     return undef;
   }
 
-  return "https://downloads.sourceforge.net/unimediaserver/Official%20Releases/OS%20X/UMS-${version}.dmg";
+  return "https://download.documentfoundation.org/libreoffice/stable/$version/mac/x86_64/LibreOffice_${version}_MacOS_x86-64_langpack_$language.dmg";
 }
 
 1;

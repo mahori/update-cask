@@ -1,4 +1,4 @@
-package Firefox;
+package Cask::FirefoxESR;
 
 use strict;
 use warnings;
@@ -25,7 +25,7 @@ sub url {
     return undef;
   }
 
-  return "https://ftp.mozilla.org/pub/firefox/releases/$version/mac/$language/Firefox%20$version.dmg";
+  return "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}esr/mac/$language/Firefox%20${version}esr.dmg";
 }
 
 1;
