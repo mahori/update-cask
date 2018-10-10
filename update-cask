@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use utf8;
+use feature qw(say);
+
+use FindBin qw($RealBin);
+use lib "$RealBin";
+use CaskFile;
+
+if (@ARGV != 4) {
+  say STDERR "Usage: $0 cask_name version input_filename output_filename";
+
+  exit 1;
+}
+my ($cask_name, $version, $input_filename, $output_filename)  = @ARGV;
+
+say STDERR "cask name       = $cask_name";
+say STDERR "version         = $version";
+say STDERR "input filename  = $input_filename";
+say STDERR "output filename = $output_filename";
+say STDERR '';
+
+my $cask_file = CaskFile->new(cask_name => $cask_name,
+                              version => $version,
+                              input_filename => $input_filename,
+                              output_filename => $output_filename);
+
+$cask_file->update;
+
+exit 0;
