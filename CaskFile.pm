@@ -14,6 +14,9 @@ use Cask::LibreofficeLanguagePack;
 use Cask::Thunderbird;
 use Cask::UniversalMediaServer;
 use DownloadFile;
+use Stanza::Language;
+use Stanza::SHA256;
+use Stanza::Version;
 
 sub new {
   my ($class, %args) = @_;
@@ -45,68 +48,55 @@ sub update {
   while (my $line = <$fh_in>) {
     chomp $line;
 
+    my @lines = ($line);
+
     # version stanza
     if ($line =~ /\A\h*version\h*'([\d.]+)'\h*/) {
-      $line =~ s/$1/$self->{_version}/;
+      my $stanza = Stanza::Version->new(line => $line,
+                                        version => $self->{_version});
+
+      @lines = $stanza->lines;
     }
 
     # sha256 stanza
     if ($line =~ /\A\h*sha256\h*'([A-Fa-f0-9]+)'\h*/) {
       my $cask = $self->{_cask};
       my $url = $cask->url;
-      my $download_file = DownloadFile->new(URL => $url);
+      my $stanza = Stanza::SHA256->new(line => $line,
+                                       URL => $url);
 
-      print STDERR 'downloading ...';
-      $download_file->download;
-      say STDERR ' done';
-
-      my $sha256 = $download_file->SHA256;
-
-      $download_file->remove;
-
-      $line =~ s/'[\da-f]+'/'$sha256'/;
+      @lines = $stanza->lines;
     }
 
     # language stanza
     if ($line =~ /\A\h*language\h*'([-A-Za-z]+)'\h*/) {
       my $language = $1;
 
-      my $line_sha256 = <$fh_in>;
-      chomp $line_sha256;
+      my $sha256_line = <$fh_in>;
+      chomp $sha256_line;
 
-      my $line_language = <$fh_in>;
-      chomp $line_language;
+      my $localized_line = <$fh_in>;
+      chomp $localized_line;
 
       my $localized;
-      if ($line_language =~ /'([-A-Za-z]+)'/) {
+      if ($localized_line =~ /'([-A-Za-z]+)'/) {
         $localized = $1;
       }
 
-      if ($language && $localized) {
-        my $cask = $self->{_cask};
-        my $download_url = $cask->url(language => $localized);
+      my $cask = $self->{_cask};
+      my $download_url = $cask->url(language => $localized);
 
-        my $download_file = DownloadFile->new(URL => $download_url);
+      my $stanza = Stanza::Language->new(language_line => $line,
+                                         sha256_line => $sha256_line,
+                                         localized_line => $localized_line,
+                                         language => $language,
+                                         localized => $localized,
+                                         URL => $download_url);
 
-        print STDERR "downloading $language [$localized] ...";
-        $download_file->download;
-        say STDERR ' done';
-
-        my $sha256 = $download_file->SHA256;
-
-        $download_file->remove;
-
-        $line_sha256 =~ s/'[\da-f]+'/'$sha256'/;
-      }
-
-      say $fh_out $line;
-      say $fh_out $line_sha256;
-      say $fh_out $line_language;
-
-      next;
+      @lines = $stanza->lines;
     }
 
-    say $fh_out $line;
+    say $fh_out join("\n", @lines);
   }
 
   close $fh_out;
