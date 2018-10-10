@@ -1,4 +1,4 @@
-package FirefoxESR;
+package Cask::Thunderbird;
 
 use strict;
 use warnings;
@@ -25,7 +25,7 @@ sub url {
     return undef;
   }
 
-  return "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}esr/mac/$language/Firefox%20${version}esr.dmg";
+  return "https://ftp.mozilla.org/pub/thunderbird/releases/$version/mac/$language/Thunderbird%20$version.dmg";
 }
 
 1;
