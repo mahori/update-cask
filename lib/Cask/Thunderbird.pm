@@ -27,7 +27,7 @@ sub url {
     return undef;
   }
 
-  return "https://ftp.mozilla.org/pub/thunderbird/releases/$version/mac/$language/Thunderbird%20$version.dmg";
+  return "https://ftp.mozilla.org/pub/thunderbird/releases/${version}/mac/${language}/Thunderbird%20${version}.dmg";
 }
 
 1;

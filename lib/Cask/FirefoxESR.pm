@@ -27,7 +27,7 @@ sub url {
     return undef;
   }
 
-  return "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}esr/mac/$language/Firefox%20${version}esr.dmg";
+  return "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}esr/mac/${language}/Firefox%20${version}esr.dmg";
 }
 
 1;
