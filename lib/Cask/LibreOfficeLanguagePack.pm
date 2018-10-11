@@ -1,11 +1,11 @@
-package Cask::FirefoxESR;
+package Cask::LibreOfficeLanguagePack;
 
 use strict;
 use warnings;
 use utf8;
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use base qw(Cask::Base);
 
 sub new {
@@ -27,7 +27,7 @@ sub url {
     return undef;
   }
 
-  return "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}esr/mac/$language/Firefox%20${version}esr.dmg";
+  return "https://download.documentfoundation.org/libreoffice/stable/$version/mac/x86_64/LibreOffice_${version}_MacOS_x86-64_langpack_$language.dmg";
 }
 
 1;

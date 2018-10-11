@@ -6,7 +6,7 @@ use utf8;
 use File::Temp qw(tempfile);
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use SHA256;
 
 sub new {

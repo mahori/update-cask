@@ -1,11 +1,11 @@
-package Cask::Firefox;
+package Cask::Thunderbird;
 
 use strict;
 use warnings;
 use utf8;
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use base qw(Cask::Base);
 
 sub new {
@@ -27,7 +27,7 @@ sub url {
     return undef;
   }
 
-  return "https://ftp.mozilla.org/pub/firefox/releases/$version/mac/$language/Firefox%20$version.dmg";
+  return "https://ftp.mozilla.org/pub/thunderbird/releases/$version/mac/$language/Thunderbird%20$version.dmg";
 }
 
 1;
