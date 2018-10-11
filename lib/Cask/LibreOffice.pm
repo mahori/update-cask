@@ -5,7 +5,7 @@ use warnings;
 use utf8;
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use base qw(Cask::Base);
 
 sub new {

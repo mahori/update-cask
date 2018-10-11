@@ -1,11 +1,11 @@
-package Cask::UniversalMediaServer;
+package Cask::Firefox;
 
 use strict;
 use warnings;
 use utf8;
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use base qw(Cask::Base);
 
 sub new {
@@ -21,12 +21,13 @@ sub url {
   my ($self, %args) = @_;
 
   my $version = $self->{_version};
+  my $language = $args{language};
 
-  unless ($version) {
+  unless ($version && $language) {
     return undef;
   }
 
-  return "https://downloads.sourceforge.net/unimediaserver/Official%20Releases/OS%20X/UMS-${version}.dmg";
+  return "https://ftp.mozilla.org/pub/firefox/releases/$version/mac/$language/Firefox%20$version.dmg";
 }
 
 1;

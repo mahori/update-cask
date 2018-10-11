@@ -6,7 +6,7 @@ use utf8;
 use feature qw(say);
 
 use FindBin qw($RealBin);
-use lib "$RealBin";
+use lib "$RealBin/lib";
 use Cask::Firefox;
 use Cask::FirefoxESR;
 use Cask::LibreOffice;
