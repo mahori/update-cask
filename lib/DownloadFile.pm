@@ -16,6 +16,7 @@ sub new {
   bless $self, $class;
 
   $self->{_url} = $args{URL};
+  $self->{_filename} = undef;
 
   return $self;
 }
@@ -25,36 +26,38 @@ sub download {
 
   my $url = $self->{_url};
 
-  my ($fh_temp, $temp_filename) = tempfile;
-  system "wget -q -O '$temp_filename' '$url'";
-  close $fh_temp;
+  my ($fh, $filename) = tempfile;
+  system "wget -q -O '$filename' '$url'";
+  close $fh;
 
-  if (-z $temp_filename) {
-    unlink $temp_filename;
+  if (-z $filename) {
+    unlink $filename;
     return;
   }
 
-  $self->{_temp_filename} = $temp_filename;
-}
-
-sub SHA256 {
-  my $self = shift;
-
-  my $sha256 = SHA256->new(filename => $self->{_temp_filename});
-
-  return $sha256->SHA256;
+  $self->{_filename} = $filename;
 }
 
 sub remove {
   my $self = shift;
 
-  my $temp_filename = $self->{_temp_filename};
+  my $filename = $self->{_filename};
 
-  unless ($temp_filename && -s $temp_filename) {
+  unless ($filename && -s $filename) {
     return;
   }
 
-  unlink $temp_filename;
+  unlink $filename;
+}
+
+sub SHA256 {
+  my $self = shift;
+
+  my $filename = $self->{_filename};
+
+  my $sha256 = SHA256->new(filename => $filename);
+
+  return $sha256->SHA256;
 }
 
 1;
