@@ -27,7 +27,7 @@ sub url {
     return undef;
   }
 
-  return "https://ftp.mozilla.org/pub/firefox/releases/$version/mac/$language/Firefox%20$version.dmg";
+  return "https://ftp.mozilla.org/pub/firefox/releases/${version}/mac/${language}/Firefox%20${version}.dmg";
 }
 
 1;
