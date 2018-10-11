@@ -52,46 +52,32 @@ sub update {
 
     # version stanza
     if ($line =~ /\A\h*version\h*'([\d.]+)'\h*/) {
-      my $stanza = Stanza::Version->new(line => $line,
-                                        version => $self->{_version});
+      my $stanza = Stanza::Version->new(cask => $self->{_cask},
+                                        line => $line);
 
       @lines = $stanza->lines;
     }
 
     # sha256 stanza
     if ($line =~ /\A\h*sha256\h*'([A-Fa-f0-9]+)'\h*/) {
-      my $cask = $self->{_cask};
-      my $url = $cask->url;
-      my $stanza = Stanza::SHA256->new(line => $line,
-                                       URL => $url);
+      my $stanza = Stanza::SHA256->new(cask => $self->{_cask},
+                                       line => $line);
 
       @lines = $stanza->lines;
     }
 
     # language stanza
     if ($line =~ /\A\h*language\h*'([-A-Za-z]+)'\h*/) {
-      my $language = $1;
-
       my $sha256_line = <$fh_in>;
       chomp $sha256_line;
 
       my $localized_line = <$fh_in>;
       chomp $localized_line;
 
-      my $localized;
-      if ($localized_line =~ /'([-A-Za-z]+)'/) {
-        $localized = $1;
-      }
-
-      my $cask = $self->{_cask};
-      my $download_url = $cask->url(language => $localized);
-
-      my $stanza = Stanza::Language->new(language_line => $line,
+      my $stanza = Stanza::Language->new(cask => $self->{_cask},
+                                         language_line => $line,
                                          sha256_line => $sha256_line,
-                                         localized_line => $localized_line,
-                                         language => $language,
-                                         localized => $localized,
-                                         URL => $download_url);
+                                         localized_line => $localized_line);
 
       @lines = $stanza->lines;
     }

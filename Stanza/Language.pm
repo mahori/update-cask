@@ -6,6 +6,7 @@ use utf8;
 
 use FindBin qw($RealBin);
 use lib "$RealBin";
+use Cask::Base;
 use DownloadFile;
 
 sub new {
@@ -14,12 +15,10 @@ sub new {
   my $self = {};
   bless $self, $class;
 
+  $self->{_cask} = $args{cask};
   $self->{_language_line} = $args{language_line};
   $self->{_sha256_line} = $args{sha256_line};
   $self->{_localized_line} = $args{localized_line};
-  $self->{_language} = $args{language};
-  $self->{_localized} = $args{localized};
-  $self->{_url} = $args{URL};
 
   return $self;
 }
@@ -27,12 +26,16 @@ sub new {
 sub lines {
   my $self = shift;
 
-  my $language = $self->{_language};
-  my $localized = $self->{_localized};
+  $self->{_language_line} =~ m/\A\h*language\h*'([-A-Za-z]+)'\h*/;
+  my $language = $1;
+
+  $self->{_localized_line} =~ m/'([-A-Za-z]+)'/;
+  my $localized = $1;
 
   print STDERR "downloading $language [$localized] ...";
 
-  my $url = $self->{_url};
+  my $cask = $self->{_cask};
+  my $url = $cask->url(language => $localized);
   my $download_file = DownloadFile->new(URL => $url);
 
   $download_file->download;
