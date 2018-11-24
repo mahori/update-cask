@@ -51,7 +51,7 @@ sub update {
     my @lines = ($line);
 
     # version stanza
-    if ($line =~ /\A\h*version\h*'([\d.]+)'\h*/) {
+    if ($line =~ /\A\h*version\h*'([-.\d]+)'\h*/) {
       my $stanza = Stanza::Version->new(cask => $self->{_cask},
                                         line => $line);
 
