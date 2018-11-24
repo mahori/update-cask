@@ -13,6 +13,7 @@ use Cask::LibreOffice;
 use Cask::LibreofficeLanguagePack;
 use Cask::Thunderbird;
 use Cask::UniversalMediaServer;
+use Cask::VMwareFusion;
 use DownloadFile;
 use Stanza::Language;
 use Stanza::SHA256;
