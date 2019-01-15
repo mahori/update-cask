@@ -7,6 +7,7 @@ use feature qw(say);
 
 use FindBin qw($RealBin);
 use lib "$RealBin/lib";
+use Cask::AudirvanaPlus;
 use Cask::CrossOver;
 use Cask::Firefox;
 use Cask::FirefoxESR;
