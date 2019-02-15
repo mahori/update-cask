@@ -7,16 +7,6 @@ use feature qw(say);
 
 use FindBin qw($RealBin);
 use lib "$RealBin/lib";
-use Cask::AudirvanaPlus;
-use Cask::BathyScaphe;
-use Cask::CrossOver;
-use Cask::Firefox;
-use Cask::FirefoxESR;
-use Cask::LibreOffice;
-use Cask::LibreofficeLanguagePack;
-use Cask::Thunderbird;
-use Cask::UniversalMediaServer;
-use Cask::VMwareFusion;
 use DownloadFile;
 use Stanza::Language;
 use Stanza::SHA256;
@@ -33,6 +23,8 @@ sub new {
 
   my $cask_name = $args{cask_name};
   my $version = $args{version};
+
+  eval "use Cask::$cask_name";
 
   $self->{_cask} = "Cask::$cask_name"->new(version => $version);
   $self->{_version} = $version;
