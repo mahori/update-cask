@@ -1,4 +1,4 @@
-package Cask::AudirvanaPlus;
+package Cask::Audirvana;
 
 use strict;
 use warnings;
@@ -26,7 +26,7 @@ sub url {
     return undef;
   }
 
-  return "https://audirvana.com/delivery/AudirvanaPlus_${version}.dmg";
+  return "https://audirvana.com/delivery/Audirvana_${version}.dmg";
 }
 
 1;
