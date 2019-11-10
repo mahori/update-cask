@@ -27,15 +27,17 @@ sub download {
   my $url = $self->{_url};
 
   my ($fh, $filename) = tempfile;
-  system "wget -q -O '$filename' '$url'";
+  system "wget -q -O '$filename' -t 1 -T 5 '$url'";
   close $fh;
 
-  if (-z $filename) {
+  if ($? != 0 or -z $filename) {
     unlink $filename;
     return;
   }
 
   $self->{_filename} = $filename;
+
+  return $filename;
 }
 
 sub remove {

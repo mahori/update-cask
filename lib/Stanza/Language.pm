@@ -38,8 +38,12 @@ sub lines {
   my $url = $cask->url(language => $localized);
   my $download_file = DownloadFile->new(URL => $url);
 
-  $download_file->download;
-  say STDERR ' done';
+  if ($download_file->download) {
+    say STDERR ' done';
+  } else {
+    say STDERR ' failed';
+    exit 1;
+  }
 
   my $sha256 = $download_file->SHA256;
 
