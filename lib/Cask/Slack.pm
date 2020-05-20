@@ -26,7 +26,7 @@ sub url {
     return undef;
   }
 
-  return "https://downloads.slack-edge.com/mac_releases/Slack-${version}-macOS.zip";
+  return "https://downloads.slack-edge.com/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
 }
 
 1;
