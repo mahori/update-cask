@@ -24,13 +24,13 @@ sub lines {
   my $self = shift;
 
   my $line = $self->{_line};
-  $line =~ m/\A\h*version\h*'([-.\d]+)'\h*/;
+  $line =~ m/\A\h*version\h*"([-.\d]+)"\h*/;
   my $old_version = $1;
 
   my $cask = $self->{_cask};
   my $new_version = $cask->version;
 
-  $line =~ s/$old_version/$new_version/;
+  $line =~ s/"$old_version"/"$new_version"/;
 
   return ($line);
 }

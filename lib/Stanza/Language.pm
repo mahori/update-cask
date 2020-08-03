@@ -26,10 +26,10 @@ sub new {
 sub lines {
   my $self = shift;
 
-  $self->{_language_line} =~ m/\A\h*language\h*'([-A-Za-z]+)'\h*/;
+  $self->{_language_line} =~ m/\A\h*language\h*"([-A-Za-z]+)"[,\h]*/;
   my $language = $1;
 
-  $self->{_localized_line} =~ m/'([-A-Za-z]+)'/;
+  $self->{_localized_line} =~ m/"([-A-Za-z]+)"/;
   my $localized = $1;
 
   print STDERR "downloading $language [$localized] ...";
@@ -50,7 +50,7 @@ sub lines {
   $download_file->remove;
 
   my $sha256_line = $self->{_sha256_line};
-  $sha256_line =~ s/'[\da-f]+'/'$sha256'/;
+  $sha256_line =~ s/"[\da-f]+"/"$sha256"/;
 
   return ($self->{_language_line}, $sha256_line, $self->{_localized_line});
 }

@@ -42,7 +42,7 @@ sub lines {
   $download_file->remove;
 
   my $line = $self->{_line};
-  $line =~ s/'[\da-f]+'/'$sha256'/;
+  $line =~ s/"[\da-f]+"/"$sha256"/;
 
   return ($line);
 }

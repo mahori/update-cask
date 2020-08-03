@@ -47,7 +47,7 @@ sub update {
     my @lines = ($line);
 
     # version stanza
-    if ($line =~ /\A\h*version\h*'([-.\d]+)'\h*/) {
+    if ($line =~ /\A\h*version\h*"([-.\d]+)"\h*/) {
       my $stanza = Stanza::Version->new(cask => $self->{_cask},
                                         line => $line);
 
@@ -55,7 +55,7 @@ sub update {
     }
 
     # sha256 stanza
-    if ($line =~ /\A\h*sha256\h*'([A-Fa-f0-9]+)'\h*/) {
+    if ($line =~ /\A\h*sha256\h*"([A-Fa-f0-9]+)"\h*/) {
       my $stanza = Stanza::SHA256->new(cask => $self->{_cask},
                                        line => $line);
 
@@ -63,7 +63,7 @@ sub update {
     }
 
     # language stanza
-    if ($line =~ /\A\h*language\h*'([-A-Za-z]+)'\h*/) {
+    if ($line =~ /\A\h*language\h*"([-A-Za-z]+)"[,\h]*/) {
       my $sha256_line = <$fh_in>;
       chomp $sha256_line;
 
