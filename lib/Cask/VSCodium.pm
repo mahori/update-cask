@@ -26,7 +26,7 @@ sub url {
     return undef;
   }
 
-  return "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium.${version}.dmg"
+  return "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium.x64.${version}.dmg"
 }
 
 1;
